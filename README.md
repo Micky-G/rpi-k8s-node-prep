@@ -106,7 +106,7 @@ Now reboot - do not skip this step.
 $ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - && \
   echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list && \
   sudo apt-get update -q && \
-  sudo apt-get install -qy kubeadm=1.10.2-00 kubectl=1.10.2-00 kubelet=1.10.2-00
+  sudo apt-get install -qy kubeadm
 ```
 > To install a later version, remove the version flag at the end (e.g. `sudo apt-get install -qy kubeadm`)
 > I realise this says 'xenial' in the apt listing, don't worry. It still works.
@@ -169,10 +169,10 @@ You should see the "READY" count showing as 1/1 for all services as above. DNS u
 
 #### Setup networking
 
-Install Flannel network driver
+I could not get Flannel to work so ended up installing weave
 
 ```
-$ curl -sSL https://rawgit.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml | sed "s/amd64/arm/g" | kubectl create -f -
+kubectl apply -f https://git.io/weave-kube-1.6
 ```
 
 ## Join other nodes
